@@ -98,13 +98,13 @@
 	    <repository>
 	      <id>nexus</id>
 	      <name>Landmark Technologies Releases Nexus Repository</name>
-	      <url>http://3.141.36.68:8081/repository/easypay-releases/</url>
+	      <url>http://18.191.81.65:8081/repository/pay-releases/</url>
 	    </repository>
 	    
 	    <snapshotRepository>
 	      <id>nexus</id>
 	      <name>Landmark Technologies Snapshot Nexus Repository </name>
-	      <url>http://3.141.36.68:8081/repository/easypay-snapshots/</url>
+	      <url>http://18.191.81.65:8081/repository/pay-snapshots/</url>
 	    </snapshotRepository>
 	    
 	</distributionManagement>
