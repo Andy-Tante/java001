@@ -98,13 +98,13 @@
 	    <repository>
 	      <id>nexus</id>
 	      <name>Landmark Technologies Releases Nexus Repository</name>
-	      <url>http://18.116.34.149:8081/repository/PAY-RELEASES/</url>
+	      <url>http://13.59.242.12:8081/repository/pay-releases/</url>
 	    </repository>
 	    
 	    <snapshotRepository>
 	      <id>nexus</id>
 	      <name>Landmark Technologies Snapshot Nexus Repository </name>
-	      <url>http://18.116.34.149:8081/repository/PAY-SNAPSHOTS/</url>
+	      <url>http://13.59.242.12:8081/repository/pay-snapshots/</url>
 	    </snapshotRepository>
 	    
 	</distributionManagement>
