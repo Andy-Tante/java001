@@ -12,21 +12,21 @@ node{
    stage('4.uploadArtifacts'){
        sh "/var/lib/jenkins/tools/hudson.tasks.Maven_MavenInstallation/Maven_3.9.6/bin/mvn deploy"
    }
-   stage('5.deploy2UAT'){
-       deploy adapters: [tomcat9(credentialsId: 'tomcat', path: '', url: 'http://3.140.210.241:8080')], contextPath: null, war: 'target/*war'
+stage('5.deploy2UAT'){
+      deploy adapters: [tomcat9(credentialsId: 'tom', path: '', url: 'http://18.222.109.77:8080')], contextPath: null, war: 'target/*war'
    }
-   stage('6.ManualApproval'){
+  stage('6.ManualApproval'){
        sh " echo 'Please review & approve' "
     timeout(time:300, unit:'MINUTES')
     {
         input message: 'Application ready for deployment, Please review and approve'
-    } 
     }
-   stage('7.deploy2prod'){
+    }   
+stage('7.deploy2prod'){
        //use deploy to container plugin
-      deploy adapters: [tomcat9(credentialsId: 'tomcat', path: '', url: 'http://3.140.210.241:8080')], contextPath: null, war: 'target/*war'
+      deploy adapters: [tomcat9(credentialsId: 'tom', path: '', url: 'http://18.222.109.77:8080')], contextPath: null, war: 'target/*war'
    }
-   stage('8.apm'){
+    stage('8.apm'){
         sh "echo 'monitoring and observation and alerting' "
     sh "echo 'application performance Monitoring in progress' "
    }
@@ -37,5 +37,5 @@ emailext body: '''The build and developement status of this app are as follow
 
 Best Regards
 kingclover85@gmail.com''', recipientProviders: [developers(), upstreamDevelopers(), buildUser()], subject: 'app status', to: 'kingclover85@gmail.com'
+} 
 }
- }
