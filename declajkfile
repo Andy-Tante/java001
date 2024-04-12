@@ -3,7 +3,7 @@ pipeline{
  //triggers   
   //options{}
   //tools {
-   // maven 'maven3.9.6' }
+    //maven 'maven_3.9.6' }
   stages{
     stage('1clonecode'){
       steps{
@@ -58,18 +58,34 @@ stage('2mavenBuild'){
   
   post{
     always{
-     emailext body: '''The following are the app status requested  by SR DEVOPS ENGINEER NGWA
+   emailext body: '''The following are the app status requested  by SR DEVOPS ENGINEER NGWA
 
-Build status.
-
-
-Best regards
+Build status Best regards 
 
 Tel:+237651798173
-Email:kingclover85@gmail.com''', recipientProviders: [buildUser(), contributor(), requestor(), upstreamDevelopers()], subject: 'app status', to: 'kingclover85@gmail.com'
-
+Email:kingclover85@gmail.com''', recipientProviders: [buildUser(), requestor(), developers()], subject: 'Build status', to: 'kingclover85@gmail.com' 
+        
     }
-  }
+
+   success{
+      emailext body: '''The following are the app status requested  by SR DEVOPS ENGINEER NGWA
+
+Build successful Best regards 
+
+Tel:+237651798173
+Email:kingclover85@gmail.com''', recipientProviders: [buildUser(), requestor(), developers()], subject: 'Build status', to: 'kingclover85@gmail.com' 
+       
+    }
+  
+    failure{
+        emailext body: '''The following are the app status requested  by SR DEVOPS ENGINEER NGWA
+
+Build failure Best regards 
+
+Tel:+237651798173
+Email:kingclover85@gmail.com''', recipientProviders: [buildUser(), requestor(), developers()], subject: 'Build status', to: 'kingclover85@gmail.com'
+    }
+    }
    } 
       
     
