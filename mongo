@@ -1,0 +1,11 @@
+docker run --name springapp -d -p 8080:8080 --network tesla \
+  -e MONGO_DB_HOSTNAME=mongo \
+  -e MONGO_DB_USERNAME=king \
+  -e MONGO_DB_PASSWORD=123456 \
+  mylandmarktech/spring-boot-mongo 
+
+ 
+ docker run -d --network tesla --name mongo \
+	-e MONGO_INITDB_ROOT_USERNAME=king \
+	-e MONGO_INITDB_ROOT_PASSWORD=123456 \
+	mongo
