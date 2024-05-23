@@ -26,6 +26,28 @@ docker run -d --network tesla --name mongodb \
 	-e MONGO_INITDB_ROOT_PASSWORD=123 \
 	mongo
 
+   NB EBS
+          https://rexray.readthedocs.io/en/v0.8.2/user-guide/docker-plugins/
+          Rexray docker-plugins for storage
+ 
+ docker plugin install rexray/ebs \
+   EBS_ACCESSKEY=abc \
+   EBS_SECRETKEY=123
+
+       NB EFS
+
+docker plugin install rexray/efs \
+  EFS_ACCESSKEY=abc \
+  EFS_SECRETKEY=123 \
+  EFS_SECURITYGROUPS="sg-123 sg-456" \
+  EFS_TAG=rexray
+
+        NB S3FS
+
+docker plugin install rexray/s3fs \
+  S3FS_ACCESSKEY=abc \
+  S3FS_SECRETKEY=123
+
 
 docker run --name web -d -p 80:8080 --network tesla mylandmarktech/java-web-app
 docker run --name app -d -p 7777:8080 --network tesla mylandmarktech/tesla
