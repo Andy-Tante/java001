@@ -33,7 +33,7 @@ docker run -d --network tesla --name mongodb \
  docker plugin install rexray/ebs \
    EBS_ACCESSKEY=abc \
    EBS_SECRETKEY=123
-
+docker volume create -d rexray/ebs ebsdb
        NB EFS
 
 docker plugin install rexray/efs \
