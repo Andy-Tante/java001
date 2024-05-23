@@ -10,7 +10,25 @@ docker run --name springapp -d -p 8080:8080 --network tesla \
 	-e MONGO_INITDB_ROOT_PASSWORD=123456 \
 	mongo
 
+                 NB Bind Mount
+         with mount point volume 
+docker run -d --network tesla --name mongodb \
+	-v /tmp/mongodb:/data/db \
+	-e MONGO_INITDB_ROOT_USERNAME=king \
+	-e MONGO_INITDB_ROOT_PASSWORD=123 \
+	mongo
+
+ NB docker volume :perssitent volume
+         with mount point volume 
+docker run -d --network tesla --name mongodb \
+	-v mongodb:/data/db \
+	-e MONGO_INITDB_ROOT_USERNAME=king \
+	-e MONGO_INITDB_ROOT_PASSWORD=123 \
+	mongo
+
 
 docker run --name web -d -p 80:8080 --network tesla mylandmarktech/java-web-app
 docker run --name app -d -p 7777:8080 --network tesla mylandmarktech/tesla
 docker run --name myapp -d -p 8888:8080 --network uat  mylandmarktech/tesla
+
+
