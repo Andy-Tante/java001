@@ -5,7 +5,7 @@ RUN mkdir /home/ubuntu/tesla34
 RUN touch /home/ubuntu/tesla.txt        
 RUN mkdir /home/ubuntu/tesla4        
 WORDIR /home/ubuntu/tesla 
-ADD https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.85/bin/apache-tomcat-9.0.85.tar.gz . 
+ADD https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.89/bin/apache-tomcat-9.0.89.tar.gz . 
 CMD pwd    
 CMD [ "echo", "I AM RICH" ]   
 
