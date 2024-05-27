@@ -1,0 +1,148 @@
+Dockerfile_CMD:  
+FROM ubuntu   
+COPY . . 
+RUN mkdir /home/ubuntu/tesla34  
+RUN touch /home/ubuntu/tesla.txt        
+RUN mkdir /home/ubuntu/tesla4        
+WORDIR /home/ubuntu/tesla 
+ADD https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.85/bin/apache-tomcat-9.0.85.tar.gz . 
+CMD pwd    
+CMD [ "echo", "I AM RICH" ]   
+
+#docker build -t image2 -f Dockerfile_CMD . 
+
+
+What is difference b/w RUN & CMD instructions ?   :
+
+RUN instructions will be executed while creating an image.
+   docker build   
+CMD/ENTRYPOINT Instructions will be executed while creating a container.
+   docker run   
+We can have more than one RUN keyword in a docker file.
+All the RUN keywords will be processed while creating an image in the defined order(top to bottom).
+
+Can we have more than one CMD in dockerfile?
+Yes you can have. But only the last one/recent one in the order will be proccessed 
+while creating a container.
+
+
+CMD [ "catalina.sh",  "run"]
+
+
+ENTRYPOINT -->:
+  ENTRYPOINT configures a container that will run as an executable.
+  ENTRYPOINT is a command or script that is executed when you run the docker container.
+
+Dockerfile_EP:  
+FROM ubuntu
+RUN mkdir /opt/class30
+RUN touch /opt/class30/jobs
+ADD . /opt/class30  
+ENTRYPOINT ["echo", "I am rich from ENTRYPOINT"]
+
+  docker run image3 ls  
+  
+How is ENTRYPOINT different from CMD?
+1. Both are command instructions executed while creating a container 
+2. ENTRYPOINT can't be over riden while we can over ride CMD 
+
+ENV --> ENV instruction sets the environment variable and this sets the environment 
+for the subsequent build instructions. It takes two forms: one with a single 
+variableENV <key> <value> and another with multiple variables ENV 
+   <key> =<avlue> <key> = <value>.
+
+
+ 
+   ENV CATALINA_HOME /usr/local/tomcat
+   ENV PATH $CATALINA_HOME/bin:$PATH
+   RUN mkdir -p "$CATALINA_HOME"
+   WORKDIR $CATALINA_HOME
+
+EXPOSE 8080
+
+ARG -> ARG Instruction defines a variable that can be passed at build time. 
+Once it is defined in the Dockerfile you can pass with this flag --build-arg 
+while building the image. We can have multiple ARG instruction in the Dockerfile. 
+ARG is the only instruction that can precede the FROM instruction in the Dockerfile.
+
+ARG values are not available after the image is built. 
+A running container won’t have access to an ARG variable value
+
+
+EX:
+
+ARG TAG=latest
+FROM centos:$TAG
+docker build -t <image-name>:<tag> --build-arg TAG=centos8 .
+
+
+WORKDIR --> WORKDIR  is used to define the working directory of a Docker container 
+at any given time. The command is specified in the Dockerfile.It is optional 
+(default is / , but base image might have set it), but considered a good practice.
+ Subsequent instructions in the Dockerfile, such as RUN , CMD and ENTRYPOINT 
+ will operate in this WORKDIR.
+
+Ex:
+
+WORKDIR /app
+
+
+LABEL
+The LABEL instruction adds metadata to an image. A LABEL is a key-value pair. 
+To include spaces within a LABEL value, use quotes and backslashes as you 
+would in command-line parsing. A few usage examples:
+
+An image can have more than one label.
+ You can specify multiple labels on a single line.
+
+LABEL label1="value1" label2="value2" other="value3"
+
+USER 
+
+The USER instruction sets the user name (or UID) and optionally the user group
+(or GID) to use when running the image and for any RUN, 
+CMD and ENTRYPOINT instructions that follow it in the Dockerfile
+
+EXPOSE:
+The EXPOSE instruction informs Docker that the container listens on 
+the specified network ports at runtime.
+
+The EXPOSE instruction does not actually publish the port. 
+It functions as a type of documentation between the person who 
+builds the image and the person who runs the container, 
+about which ports are intended to be published. 
+To actually publish the port when running the container, 
+use the -p flag on docker run to publish and map one or more ports.
+
+EXPOSE 8080  
+
+NETWORK  
+VOLUMES   
+
+FROM centos
+MAINTAINER mylandmarktech@gmail.com
+RUN mkdir /opt/tomcat/
+WORKDIR /opt/tomcat
+#RUN curl -O https://downloads.apache.org/tomcat/tomcat-9/v9.0.38/bin/apache-tomcat-9.0.38.tar.gz
+ADD  https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.65/bin/apache-tomcat-9.0.65.tar.gz .
+RUN tar xvfz apache*.tar.gz
+RUN mv apache-tomcat-9.0.40/* /opt/tomcat/.
+RUN yum -y install java
+RUN java -version
+WORKDIR /opt/tomcat/webapps
+EXPOSE 8080
+CMD ["/opt/tomcat/bin/catalina.sh", "run"]
+============================
+FROM centos
+MAINTAINER mylandmarktech@gmail.com
+RUN mkdir /opt/tomcat/
+WORKDIR /opt/tomcat
+#RUN curl -O https://downloads.apache.org/tomcat/tomcat-9/v9.0.38/bin/apache-tomcat-9.0.38.tar.gz
+ADD  https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.65/bin/apache-tomcat-9.0.65.tar.gz .
+RUN tar xvfz apache*.tar.gz && \
+  mv apache-tomcat-9.0.40/* /opt/tomcat/.  && \
+  yum -y install java && \
+  java -version
+WORKDIR /opt/tomcat/webapps
+EXPOSE 8080
+CMD ["/opt/tomcat/bin/catalina.sh", "run"]
