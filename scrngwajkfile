@@ -1,3 +1,5 @@
+#tk= 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
+
 node{
   stage('1.clonecode'){
  git "https://github.com/Ngwa23/pay"
